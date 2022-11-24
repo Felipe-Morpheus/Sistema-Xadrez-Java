@@ -2,18 +2,18 @@ package jogo_tabuleiro;
 
 public class Posicao {
 	
-	//ATRIBUTO
+	//ATRIBUTO//
 	private int linha;
 	private int coluna;
 	
-	//CONSTRUTOR C/ ARGUMENTO
+	//CONSTRUTOR C/ ARGUMENTO//
 	public Posicao(int linha, int coluna) {
 	//	super();
 		this.linha = linha;
 		this.coluna = coluna;
 	}
 	
-	//GET-SET
+	//GET-SET//
 	public int getLinha() {
 		return linha;
 	}

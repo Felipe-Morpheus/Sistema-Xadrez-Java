@@ -5,7 +5,7 @@ import xadrez.PecaXadrez;
 
 public class UI {
 
-	// METODO-FUNCAO
+	// METODO-FUNCAO//
 //	public static void printTabuleiro(PecaXadrez[][] pegaPecas) {
 
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
@@ -21,7 +21,7 @@ public class UI {
 		System.out.println("  a b c d e f g h");
 	}
 
-	// METODO-FUNCAO
+	// METODO-FUNCAO//
 	private static void printPeca(PecaXadrez peca) {
 		if (peca == null) {
 			System.out.print("-");

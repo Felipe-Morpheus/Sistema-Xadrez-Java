@@ -2,13 +2,13 @@ package jogo_tabuleiro;
 
 public class Tabuleiro {
 	
-	//ATRIBUTO
+	//ATRIBUTO//
 	private int linhas;
 	private int colunas;
 	private Peca[][] pecas;
 	
 	
-	//CONSTRUTOR C/ ARGUMENTO
+	//CONSTRUTOR C/ ARGUMENTO//
 	public Tabuleiro(int linhas, int colunas) {
 		super();
 		this.linhas = linhas;
@@ -16,7 +16,7 @@ public class Tabuleiro {
 		pecas = new Peca[linhas][colunas];
 	}
 
-	//GET-SETS
+	//GET-SETS//
 	public int getLinhas() {
 		return linhas;
 	}
@@ -36,13 +36,18 @@ public class Tabuleiro {
 		this.colunas = colunas;
 	}
 	
-	//Operacao/ Metodo / Função
+	//Operacao/ Metodo / Função//
 	public Peca peca (int linha, int coluna) {
 		return pecas[linha][coluna];
 	}
-	
+	//Operacao/ Metodo / Função//
 	public Peca peca (Posicao posicao) {
 		return pecas [posicao.getLinha()][posicao.getColuna()];
+	}
+	//Operacao/ Metodo / Função//
+	public void moverPeca (Peca peca, Posicao posicao) {
+		pecas[posicao.getLinha()][posicao.getColuna()] = peca;
+		peca.posicao = posicao;
 	}
 
 }
