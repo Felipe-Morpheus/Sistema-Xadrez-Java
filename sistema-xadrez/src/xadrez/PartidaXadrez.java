@@ -1,6 +1,5 @@
 package xadrez;
 
-import jogo_tabuleiro.Posicao;
 import jogo_tabuleiro.Tabuleiro;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
@@ -30,11 +29,16 @@ public class PartidaXadrez {
 	}
 	
 	// METODO- OPERACAO - FUNCAO//
+	//MOVER PEÇA NA COORDENADA DO TABULEIRO
+	private void moverNovaPeca(char coluna, int linha, PecaXadrez peca ) {
+		tabuleiro.moverPeca(peca, new PosicaoXadrez(coluna, linha).Posicionar());
+	}
+	
 	//COORDENADAS DAS PEÇAS
 	private void toqueInicial () {
-		tabuleiro.moverPeca(new Torre(tabuleiro, Cor.BRANCO), new Posicao(2, 1));
-		tabuleiro.moverPeca(new Rei(tabuleiro, Cor.PRETO), new Posicao(0, 4));
-		tabuleiro.moverPeca(new Rei(tabuleiro, Cor.BRANCO), new Posicao(7, 4));
+		moverNovaPeca('b' , 6, new Torre(tabuleiro, Cor.BRANCO));
+		moverNovaPeca('e', 8, new Rei(tabuleiro, Cor.PRETO));
+		moverNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
 
 
 	}

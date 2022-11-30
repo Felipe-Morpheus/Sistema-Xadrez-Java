@@ -8,7 +8,7 @@ public class Tabuleiro {
 	private Peca[][] pecas;
 	
 	
-	//CONSTRUTOR C/ ARGUMENTO//
+	//CONSTRUTOR C/ ARGUMENTO// Exception
 	public Tabuleiro(int linhas, int colunas) {
 		if (linhas < 1 || colunas <1) {
 			throw new TabuleiroException("Erro criando o tabuleiro: Deve haver pelo menos 1 linha e 1 coluna");
