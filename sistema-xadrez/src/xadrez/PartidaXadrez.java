@@ -36,9 +36,19 @@ public class PartidaXadrez {
 	
 	//COORDENADAS DAS PEÇAS
 	private void toqueInicial () {
-		moverNovaPeca('b' , 6, new Torre(tabuleiro, Cor.BRANCO));
-		moverNovaPeca('e', 8, new Rei(tabuleiro, Cor.PRETO));
-		moverNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
+		moverNovaPeca('c', 1, new Torre(tabuleiro, Cor.BRANCO));
+        moverNovaPeca('c', 2, new Torre(tabuleiro, Cor.BRANCO));
+        moverNovaPeca('d', 2, new Torre(tabuleiro, Cor.BRANCO));
+        moverNovaPeca('e', 2, new Torre(tabuleiro, Cor.BRANCO));
+        moverNovaPeca('e', 1, new Torre(tabuleiro, Cor.BRANCO));
+        moverNovaPeca('d', 1, new Rei(tabuleiro, Cor.BRANCO));
+
+        moverNovaPeca('c', 7, new Torre(tabuleiro, Cor.PRETO));
+        moverNovaPeca('c', 8, new Torre(tabuleiro, Cor.PRETO));
+        moverNovaPeca('d', 7, new Torre(tabuleiro, Cor.PRETO));
+        moverNovaPeca('e', 7, new Torre(tabuleiro, Cor.PRETO));
+        moverNovaPeca('e', 8, new Torre(tabuleiro, Cor.PRETO));
+        moverNovaPeca('d', 8, new Rei(tabuleiro, Cor.PRETO));
 
 
 	}
