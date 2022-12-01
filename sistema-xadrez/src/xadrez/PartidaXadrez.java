@@ -1,5 +1,7 @@
 package xadrez;
 
+import jogo_tabuleiro.Peca;
+import jogo_tabuleiro.Posicao;
 import jogo_tabuleiro.Tabuleiro;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
@@ -26,6 +28,30 @@ public class PartidaXadrez {
 			}
 		}
 		return mat;
+	}
+
+	// METODO- OPERACAO - FUNCAO//
+	public PecaXadrez performaMovimentoXadrez (PosicaoXadrez origemPosicao, PosicaoXadrez destinoPosicao) {
+		Posicao origem  = origemPosicao.Posicionar();
+		Posicao destino = destinoPosicao.Posicionar();
+		validarOrigemPosicao(origem);
+		Peca capturarPeca = fazerMovimento(origem, destino);
+		return (PecaXadrez)capturarPeca;
+	}
+	
+	private Peca fazerMovimento(Posicao origem, Posicao destino) {
+		Peca p = tabuleiro.removePeca(origem);
+		Peca capturarPeca = tabuleiro.removePeca(destino);
+		tabuleiro.moverPeca(p, destino);
+		return capturarPeca;
+	}
+	
+	
+	// METODO- OPERACAO - FUNCAO//
+	private void validarOrigemPosicao(Posicao posicao) {
+		if(!tabuleiro.haUmaPeca(posicao)) {
+			throw new XadrezException("Não existe peça na posição de origem. ");
+		}
 	}
 	
 	// METODO- OPERACAO - FUNCAO//
