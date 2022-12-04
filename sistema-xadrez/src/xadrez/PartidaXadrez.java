@@ -52,6 +52,10 @@ public class PartidaXadrez {
 		if(!tabuleiro.haUmaPeca(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem. ");
 		}
+		if(tabuleiro.peca(posicao).existePossiveisMovimentos()) {
+			throw new XadrezException("Não existe movimentos possíveis para a peça escolhida. ");
+			
+		}
 	}
 	
 	// METODO- OPERACAO - FUNCAO//
