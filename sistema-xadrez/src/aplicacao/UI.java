@@ -32,6 +32,13 @@ public class UI {
 	public static final String ANSI_BRANCO_BACKGROUND = "\u001B[47m";
 
 	// METODO-FUNCAO//
+	// https://stackoverflow.com/questions/2979383/java-clear-the-console
+	public static void limparTela() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
+	// METODO-FUNCAO//
 	public static PosicaoXadrez leiaPosicaoXadrez(Scanner ler) {
 		try {
 			String s = ler.nextLine();
@@ -43,6 +50,7 @@ public class UI {
 		}
 
 	}
+
 	// METODO-FUNCAO//
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
