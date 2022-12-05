@@ -29,6 +29,12 @@ public class PartidaXadrez {
 		}
 		return mat;
 	}
+	
+	public boolean[][] possiveisMovimentos(PosicaoXadrez origemPosicao) {
+		Posicao posicao = origemPosicao.Posicionar();
+		validarOrigemPosicao(posicao);
+		return tabuleiro.peca(posicao).possiveisMovimentos();
+	}
 
 	// METODO- OPERACAO - FUNCAO//
 	public PecaXadrez performaMovimentoXadrez(PosicaoXadrez origemPosicao, PosicaoXadrez destinoPosicao) {
