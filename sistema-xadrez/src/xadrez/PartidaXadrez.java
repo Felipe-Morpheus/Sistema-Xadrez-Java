@@ -9,14 +9,26 @@ import xadrez.pecas.Torre;
 public class PartidaXadrez {
 
 	// ATRIBUTO//
+	private int turno;
+	private Cor JogadorAtual;
 	private Tabuleiro tabuleiro;
 
 	// CONSTRUTOR C/ ARGUMENTO//
 	public PartidaXadrez() {
 		tabuleiro = new Tabuleiro(8, 8);
+		turno = 1;
+		JogadorAtual = Cor.BRANCO;
 
 		// INICIAR PARTIDA
 		toqueInicial();
+	}
+	//GET-SET
+	public int getTurno() {
+		return turno;
+	}
+	
+	public Cor getJogadorAtual() {
+		return JogadorAtual;
 	}
 
 	// METODO- OPERACAO - FUNCAO//
@@ -43,6 +55,7 @@ public class PartidaXadrez {
 		validarOrigemPosicao(origem);
 		validarDestinoPosicao(origem, destino);
 		Peca capturarPeca = fazerMovimento(origem, destino);
+		proximoTurno();
 		return (PecaXadrez) capturarPeca;
 	}
 
@@ -58,7 +71,10 @@ public class PartidaXadrez {
 		if (!tabuleiro.haUmaPeca(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem. ");
 		}
-		if (tabuleiro.peca(posicao).existePossiveisMovimentos()) {
+		if(JogadorAtual != ((PecaXadrez)tabuleiro.peca(posicao)).getCor()) {
+			throw new XadrezException("A peça escolhida não é sua. ");
+		}
+		if (!tabuleiro.peca(posicao).existePossiveisMovimentos()) {
 			throw new XadrezException("Não existe movimentos possíveis para a peça escolhida. ");
 
 		}
@@ -68,6 +84,12 @@ public class PartidaXadrez {
 		if (!tabuleiro.peca(origem).possivelMovimento(destino)) {
 			throw new XadrezException("A peça escolhida, não pode se mover para a posição destinada. ");
 		}
+	}
+	//TROCA DE TURNO
+	private void proximoTurno() {
+		turno++;
+		//Expressão condicional ternaria
+		JogadorAtual =  (JogadorAtual == Cor.BRANCO) ? Cor.PRETO : Cor.BRANCO;
 	}
 
 	// METODO- OPERACAO - FUNCAO//

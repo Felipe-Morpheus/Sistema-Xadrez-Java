@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PecaXadrez;
 import xadrez.PosicaoXadrez;
 
@@ -52,6 +53,13 @@ public class UI {
 	}
 
 	// METODO-FUNCAO//
+	public static void printPartida(PartidaXadrez partidaXadrez) {
+		printTabuleiro(partidaXadrez.getPecas());
+		System.out.println();
+		System.out.println("Turno: " +  partidaXadrez.getTurno());
+		System.out.println("Aguardando jogador: " + partidaXadrez.getJogadorAtual());
+	}
+	
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
