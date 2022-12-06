@@ -1,7 +1,10 @@
 package aplicacao;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import xadrez.Cor;
 import xadrez.PartidaXadrez;
@@ -53,8 +56,10 @@ public class UI {
 	}
 
 	// METODO-FUNCAO//
-	public static void printPartida(PartidaXadrez partidaXadrez) {
+	public static void printPartida(PartidaXadrez partidaXadrez, List<PecaXadrez> capturado) {
 		printTabuleiro(partidaXadrez.getPecas());
+		System.out.println();
+		printCapturarPecas(capturado);
 		System.out.println();
 		System.out.println("Turno: " +  partidaXadrez.getTurno());
 		System.out.println("Aguardando jogador: " + partidaXadrez.getJogadorAtual());
@@ -99,5 +104,21 @@ public class UI {
 			}
 		}
 		System.out.print(" ");
+	}
+	//METODO FUNÇÃO PARA FILTRAR LISTA
+	private static void printCapturarPecas(List<PecaXadrez> capturado) {
+		List<PecaXadrez> branco = capturado.stream().filter(x -> x.getCor() == Cor.BRANCO).collect(Collectors.toList());
+		List<PecaXadrez> preto = capturado.stream().filter(x -> x.getCor() == Cor.PRETO).collect(Collectors.toList());
+		System.out.println("Peças capturadas: ");
+		System.out.print("Brancas: ");
+		System.out.println(ANSI_BRANCO);
+		System.out.println(Arrays.toString(branco.toArray()));//Padroa pra imprimir arrays no java
+		System.out.println(ANSI_REDEFINIR);
+		
+		System.out.print("Pretas: ");
+		System.out.println(ANSI_PRETO);
+		System.out.println(Arrays.toString(preto.toArray()));//Padroa pra imprimir arrays no java
+		System.out.println(ANSI_REDEFINIR);
+	
 	}
 }
