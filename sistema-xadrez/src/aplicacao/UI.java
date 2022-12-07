@@ -61,10 +61,13 @@ public class UI {
 		System.out.println();
 		printCapturarPecas(capturado);
 		System.out.println();
-		System.out.println("Turno: " +  partidaXadrez.getTurno());
+		System.out.println("Turno: " + partidaXadrez.getTurno());
 		System.out.println("Aguardando jogador: " + partidaXadrez.getJogadorAtual());
+		if(partidaXadrez.getXeque()) {
+			System.out.println("XEQUE! ");
+		}
 	}
-	
+
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -77,6 +80,7 @@ public class UI {
 
 		System.out.println("  a b c d e f g h");
 	}
+
 	// METODO-FUNCAO//
 	public static void printTabuleiro(PecaXadrez[][] pecas, boolean[][] possiveisMovimentos) {
 		for (int i = 0; i < pecas.length; i++) {
@@ -93,7 +97,7 @@ public class UI {
 
 	// METODO-FUNCAO//
 	private static void printPeca(PecaXadrez peca, boolean fundo) {
-		if(fundo) {
+		if (fundo) {
 			System.out.print(ANSI_AZUL_BACKGROUND);
 		}
 		if (peca == null) {
@@ -105,20 +109,21 @@ public class UI {
 		}
 		System.out.print(" ");
 	}
-	//METODO FUNÇÃO PARA FILTRAR LISTA
+
+	// METODO FUNÇÃO PARA FILTRAR LISTA
 	private static void printCapturarPecas(List<PecaXadrez> capturado) {
 		List<PecaXadrez> branco = capturado.stream().filter(x -> x.getCor() == Cor.BRANCO).collect(Collectors.toList());
 		List<PecaXadrez> preto = capturado.stream().filter(x -> x.getCor() == Cor.PRETO).collect(Collectors.toList());
 		System.out.println("Peças capturadas: ");
 		System.out.print("Brancas: ");
 		System.out.println(ANSI_BRANCO);
-		System.out.println(Arrays.toString(branco.toArray()));//Padroa pra imprimir arrays no java
+		System.out.println(Arrays.toString(branco.toArray()));// PadraO pra imprimir arrays no java
 		System.out.println(ANSI_REDEFINIR);
-		
+
 		System.out.print("Pretas: ");
 		System.out.println(ANSI_PRETO);
-		System.out.println(Arrays.toString(preto.toArray()));//Padroa pra imprimir arrays no java
+		System.out.println(Arrays.toString(preto.toArray()));// PadraO pra imprimir arrays no java
 		System.out.println(ANSI_REDEFINIR);
-	
+
 	}
 }

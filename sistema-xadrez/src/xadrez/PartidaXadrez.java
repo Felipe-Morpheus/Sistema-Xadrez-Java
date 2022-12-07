@@ -2,6 +2,7 @@ package xadrez;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jogo_tabuleiro.Peca;
 import jogo_tabuleiro.Posicao;
@@ -13,29 +14,34 @@ public class PartidaXadrez {
 
 	// ATRIBUTO//
 	private int turno;
-	private Cor JogadorAtual;
+	private Cor jogadorAtual;
 	private Tabuleiro tabuleiro;
-	
+	private boolean xeque;
+
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
-
 
 	// CONSTRUTOR C/ ARGUMENTO//
 	public PartidaXadrez() {
 		tabuleiro = new Tabuleiro(8, 8);
 		turno = 1;
-		JogadorAtual = Cor.BRANCO;
+		jogadorAtual = Cor.BRANCO;
 
 		// INICIAR PARTIDA
 		toqueInicial();
 	}
-	//GET-SET
+
+	// GET-SET
 	public int getTurno() {
 		return turno;
 	}
-	
+
 	public Cor getJogadorAtual() {
-		return JogadorAtual;
+		return jogadorAtual;
+	}
+	
+	public boolean getXeque() {
+		return xeque;
 	}
 
 	// METODO- OPERACAO - FUNCAO//
@@ -48,7 +54,7 @@ public class PartidaXadrez {
 		}
 		return mat;
 	}
-	
+
 	public boolean[][] possiveisMovimentos(PosicaoXadrez origemPosicao) {
 		Posicao posicao = origemPosicao.Posicionar();
 		validarOrigemPosicao(posicao);
@@ -62,15 +68,24 @@ public class PartidaXadrez {
 		validarOrigemPosicao(origem);
 		validarDestinoPosicao(origem, destino);
 		Peca capturarPeca = fazerMovimento(origem, destino);
+		
+		if(testXeque(jogadorAtual)) {
+			desfazerMovimento(origem, destino, capturarPeca);
+			throw new XadrezException("Você não pode se colocar em xeque. ");
+		}
+		
+		xeque = (testXeque(oponente(jogadorAtual))) ? true : false;
+		
 		proximoTurno();
 		return (PecaXadrez) capturarPeca;
 	}
 
+	// METODO- OPERACAO - FUNCAO//
 	private Peca fazerMovimento(Posicao origem, Posicao destino) {
 		Peca p = tabuleiro.removePeca(origem);
 		Peca capturarPeca = tabuleiro.removePeca(destino);
 		tabuleiro.moverPeca(p, destino);
-		
+
 		if (capturarPeca != null) {
 			pecasNoTabuleiro.remove(capturarPeca);
 			pecasCapturadas.add(capturarPeca);
@@ -79,11 +94,23 @@ public class PartidaXadrez {
 	}
 
 	// METODO- OPERACAO - FUNCAO//
+	private void desfazerMovimento(Posicao origem, Posicao destino, Peca capturarPeca) {
+		Peca p = tabuleiro.removePeca(destino);
+		tabuleiro.moverPeca(p, origem);
+
+		if (capturarPeca != null) {
+			tabuleiro.moverPeca(capturarPeca, destino);
+			pecasCapturadas.remove(capturarPeca);
+			pecasNoTabuleiro.add(capturarPeca);
+		}
+	}
+
+	// METODO- OPERACAO - FUNCAO//
 	private void validarOrigemPosicao(Posicao posicao) {
 		if (!tabuleiro.haUmaPeca(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem. ");
 		}
-		if(JogadorAtual != ((PecaXadrez)tabuleiro.peca(posicao)).getCor()) {
+		if (jogadorAtual != ((PecaXadrez) tabuleiro.peca(posicao)).getCor()) {
 			throw new XadrezException("A peça escolhida não é sua. ");
 		}
 		if (!tabuleiro.peca(posicao).existePossiveisMovimentos()) {
@@ -92,16 +119,51 @@ public class PartidaXadrez {
 		}
 	}
 
-	private void validarDestinoPosicao (Posicao origem, Posicao destino) {
+	// METODO- OPERACAO - FUNCAO//
+	private void validarDestinoPosicao(Posicao origem, Posicao destino) {
 		if (!tabuleiro.peca(origem).possivelMovimento(destino)) {
 			throw new XadrezException("A peça escolhida, não pode se mover para a posição destinada. ");
 		}
 	}
-	//TROCA DE TURNO
+
+	// TROCA DE TURNO
 	private void proximoTurno() {
 		turno++;
-		//Expressão condicional ternaria
-		JogadorAtual =  (JogadorAtual == Cor.BRANCO) ? Cor.PRETO : Cor.BRANCO;
+		// Expressão condicional ternaria (Se variável for igual (==) , retornar tal
+		// (?), senão retornar acolá( : ) )
+		jogadorAtual = (jogadorAtual == Cor.BRANCO) ? Cor.PRETO : Cor.BRANCO;
+	}
+
+	// METODO- OPERACAO - FUNCAO//
+	private Cor oponente(Cor cor) {
+		// Expressão condicional ternaria (Se variável for igual (==) , retornar tal
+		// (?), senão retornar acolá( : ) )
+		return (cor == Cor.BRANCO) ? Cor.PRETO : Cor.BRANCO;
+	}
+
+	// METODO- OPERACAO - FUNCAO//
+	private PecaXadrez rei(Cor cor) {
+		List<Peca> list = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == cor)
+				.collect(Collectors.toList());
+		for (Peca p : list) {
+			if (p instanceof Rei) {
+				return (PecaXadrez) p;
+			}
+		}
+		throw new IllegalStateException("Não existe o rei " + cor + " no tabuleiro. ");
+	}
+
+	private boolean testXeque(Cor cor) {
+		Posicao reiPosicao = rei(cor).getPosicaoXadrez().Posicionar();
+		List<Peca> pecasOponente = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == oponente(cor))
+				.collect(Collectors.toList());
+		for (Peca p : pecasOponente) {
+			boolean[][] mat = p.possiveisMovimentos();
+			if (mat[reiPosicao.getLinha()][reiPosicao.getColuna()]) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// METODO- OPERACAO - FUNCAO//
