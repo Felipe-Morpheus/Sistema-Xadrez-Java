@@ -9,6 +9,7 @@ import jogo_tabuleiro.Posicao;
 import jogo_tabuleiro.Tabuleiro;
 import xadrez.pecas.Bispo;
 import xadrez.pecas.Cavalo;
+import xadrez.pecas.Dama;
 import xadrez.pecas.Peao;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
@@ -217,12 +218,10 @@ public class PartidaXadrez {
 	// COORDENADAS DAS PEÇAS
 	private void toqueInicial() {
 
-		
-
 		moverNovaPeca('a', 1, new Torre(tabuleiro, Cor.BRANCO));
 		moverNovaPeca('b', 1, new Cavalo(tabuleiro, Cor.BRANCO));
 		moverNovaPeca('c', 1, new Bispo(tabuleiro, Cor.BRANCO));
-		// moverNovaPeca('d', 1, new Rainha(tabuleiro, Cor.BRANCO));
+		moverNovaPeca('d', 1, new Dama(tabuleiro, Cor.BRANCO));
 		moverNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
 		moverNovaPeca('f', 1, new Bispo(tabuleiro, Cor.BRANCO));
 		moverNovaPeca('g', 1, new Cavalo(tabuleiro, Cor.BRANCO));
@@ -239,7 +238,7 @@ public class PartidaXadrez {
 		moverNovaPeca('a', 8, new Torre(tabuleiro, Cor.PRETO));
 		moverNovaPeca('b', 8, new Cavalo(tabuleiro, Cor.PRETO));
 		moverNovaPeca('c', 8, new Bispo(tabuleiro, Cor.PRETO));
-		// moverNovaPeca('d', 8, new Rainha(tabuleiro, Cor.PRETO));
+		moverNovaPeca('d', 8, new Dama(tabuleiro, Cor.PRETO));
 		moverNovaPeca('e', 8, new Rei(tabuleiro, Cor.PRETO));
 		moverNovaPeca('f', 8, new Bispo(tabuleiro, Cor.PRETO));
 		moverNovaPeca('g', 8, new Cavalo(tabuleiro, Cor.PRETO));
