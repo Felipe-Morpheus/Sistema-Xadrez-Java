@@ -8,6 +8,7 @@ public abstract class PecaXadrez extends Peca {
 
 	// ATRIBUTO//
 	private Cor cor;
+	private int contarMovimento;
 
 	// CONSTRUTOR C/ ARGUMENTO//
 	public PecaXadrez(Tabuleiro tabuleiro, Cor cor) {
@@ -18,6 +19,17 @@ public abstract class PecaXadrez extends Peca {
 	// GET-SET//
 	public Cor getCor() {
 		return cor;
+	}
+	public int getContarMovimento() {
+		return contarMovimento;
+	}
+	
+	public void increaseContarMovimento() {
+		contarMovimento++;
+	}
+	
+	public void decreaseContarMovimento() {
+		contarMovimento--;
 	}
 	
 	public PosicaoXadrez getPosicaoXadrez() {
