@@ -41,7 +41,11 @@ public class Programa {
 				
 				if(partidaXadrez.getPromocao() != null) {
 					System.out.print("Entre com a Inicial correspondente a promoção desejada (B/C/T/D). ");
-					String tipo = ler.nextLine();
+					String tipo = ler.nextLine().toUpperCase();
+					while(!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") && !tipo.equals("D")) {
+						System.out.print("Valor inválido! Entre com a Inicial correspondente a promoção desejada (B/C/T/D). ");
+						tipo = ler.nextLine().toUpperCase();
+					}
 					partidaXadrez.trocaPecaPromovida(tipo);
 				}
 			
